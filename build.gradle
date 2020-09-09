@@ -26,4 +26,6 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
+
+    testImplementation 'io.rest-assured:rest-assured:4.3.1'
 }
