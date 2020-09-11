@@ -20,8 +20,8 @@ public class TrelloApiTest {
         requestSpecification = new RequestSpecBuilder().
                 setBaseUri("https://api.trello.com").
                 addHeader("Content-Type", "application/json").
-                addQueryParam("key", "5f2cbd95fa07d08b14aaecca091f440d").
-                addQueryParam("token", "aa121a8247f40bc0347797fb49993bc4a77f1e19e5f43f511c9f203886d730df").
+                addQueryParam("key", "").
+                addQueryParam("token", "").
                 build();
 
         responseSpecification = new ResponseSpecBuilder().

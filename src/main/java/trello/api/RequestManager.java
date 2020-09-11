@@ -4,6 +4,8 @@ package trello.api;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 
 public final class RequestManager {
@@ -19,6 +21,24 @@ public final class RequestManager {
     }
 
     public static Response post(String endpoint, String body) {
+        return given()
+                .spec(requestSpecification)
+                .log().all()
+                .body(body)
+                .when()
+                .post(endpoint);
+    }
+
+    public static Response post(String endpoint, Object body) {
+        return given()
+                .spec(requestSpecification)
+                .log().all()
+                .body(body)
+                .when()
+                .post(endpoint);
+    }
+
+    public static Response post(String endpoint, Map<String, Object> body) {
         return given()
                 .spec(requestSpecification)
                 .log().all()

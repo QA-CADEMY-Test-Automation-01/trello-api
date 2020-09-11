@@ -5,6 +5,9 @@ import org.junit.After;
 import org.junit.Test;
 import trello.api.RequestManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -21,6 +24,26 @@ public class TrelloApiBoardPostTest {
     @Test
     public void testBoardPostWithJUnit() {
         Response response = RequestManager.post("/1/boards/", "{\"name\":\"Example Board\"}");
+        id = response.path("id");
+        assertEquals(200, response.getStatusCode());
+    }
+
+    @Test
+    public void testBoardPostWithRestAssuredWithHashMap() {
+        Map<String, Object> jsonAsMap = new HashMap<>();
+        jsonAsMap.put("name", "Example Board");
+        jsonAsMap.put("desc", "Description");
+        id = RequestManager.post("/1/boards/", jsonAsMap)
+                .then().statusCode(200)
+                .extract().path("id");
+    }
+
+    @Test
+    public void testBoardPostWithJUnitWithHashMap() {
+        Map<String, Object> jsonAsMap = new HashMap<>();
+        jsonAsMap.put("name", "Example Board");
+        jsonAsMap.put("desc", "Description");
+        Response response = RequestManager.post("/1/boards/", jsonAsMap);
         id = response.path("id");
         assertEquals(200, response.getStatusCode());
     }
