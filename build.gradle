@@ -30,4 +30,23 @@ dependencies {
     implementation 'io.rest-assured:rest-assured:4.3.1'
     implementation 'io.rest-assured:json-schema-validator:4.3.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.2'
+    compile group: 'io.cucumber', name: 'cucumber-java', version: '6.6.1'
+    testCompile group: 'io.cucumber', name: 'cucumber-junit', version: '6.6.1'
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'trello.api.cucumber', 'src/test/resources/features']
+        }
+    }
 }
