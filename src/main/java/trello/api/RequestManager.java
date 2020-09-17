@@ -56,6 +56,24 @@ public final class RequestManager {
                 .put(endpoint);
     }
 
+    public static Response put(String endpoint, Object body) {
+        return given()
+                .spec(requestSpecification)
+                .log().all()
+                .body(body)
+                .when()
+                .put(endpoint);
+    }
+
+    public static Response put(String endpoint, Map<String, Object> body) {
+        return given()
+                .spec(requestSpecification)
+                .log().all()
+                .body(body)
+                .when()
+                .put(endpoint);
+    }
+
     public static Response delete(String endpoint) {
         return given()
                 .spec(requestSpecification)

@@ -1,42 +1,58 @@
 package trello.api.cucumber;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.response.Response;
 import trello.api.RequestManager;
+import trello.api.RequestType;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
+import java.util.Map;
+
 
 public class TrelloApiSteps {
 
-    private String endpoint;
-    private Response response;
+    private Helper helper;
+
+    public TrelloApiSteps(Helper helper) {
+        this.helper = helper;
+    }
 
     @Given("endpoint {string}")
     public void endpoint(String endpoint) {
         System.out.println(endpoint);
-        this.endpoint = endpoint;
+        this.helper.endpoint = endpoint;
     }
 
-    @When("method {word}")
-    public void method_get(String httpMethod) {
+    @Given("raw body:")
+    public void rawBody(String rawBody) {
+        System.out.println(rawBody);
+        this.helper.rawBody = rawBody;
+        this.helper.bodyType = BodyType.RAW;
+    }
+
+    @Given("body data:")
+    public void bodyData(Map<String, String> bodyMap) {
+        this.helper.bodyMap = bodyMap;
+        this.helper.bodyType = BodyType.MAP;
+    }
+
+    @When("^method (GET|POST|PUT|DELETE)$")
+    public void setHttpMethod(RequestType httpMethod) {
         System.out.println(httpMethod);
-        this.response = RequestManager.get(endpoint);
-    }
-
-    @Then("status code {int}")
-    public void status_code(int statusCode) {
-        System.out.println(statusCode);
-        assertEquals(statusCode, response.getStatusCode());
-    }
-
-    @Then("response body contains {string}")
-    public void responseBodyContains(String string) {
-        response.then()
-                .statusCode(200)
-                .header("Content-Type", "application/json; charset=utf-8")
-                .body("[0].name", equalTo("Example"));
+        if (RequestType.GET.equals(httpMethod)) {
+            this.helper.response = RequestManager.get(this.helper.endpoint);
+        }
+        if (RequestType.POST.equals(httpMethod)) {
+            if (BodyType.RAW.equals(this.helper.bodyType)) {
+                this.helper.response = RequestManager.post(this.helper.endpoint, this.helper.rawBody);
+            }
+            if (BodyType.MAP.equals(this.helper.bodyType)) {
+                this.helper.response = RequestManager.post(this.helper.endpoint, this.helper.bodyMap);
+            }
+        }
+        if (RequestType.PUT.equals(httpMethod)) {
+            String endpoint = this.helper.endpoint.replace("[board.id]", this.helper.board.getId());
+            System.out.println(endpoint);
+            this.helper.response = RequestManager.put(endpoint, this.helper.rawBody);
+        }
     }
 }
