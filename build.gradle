@@ -9,6 +9,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'de.javaansehz.cluecumber-report-gradle-plugin' version "1.1.5"
 }
 
 repositories {
@@ -33,6 +34,10 @@ dependencies {
     implementation 'io.cucumber:cucumber-java:6.6.1'
     implementation 'io.cucumber:cucumber-picocontainer:6.6.1'
     testImplementation 'io.cucumber:cucumber-junit:6.6.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
+    implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
+    implementation 'de.monochromata.cucumber:reporting-plugin:4.0.84'
+    implementation 'com.trivago.rta:cluecumber-report-plugin:2.5.0'
 }
 
 configurations {
@@ -50,4 +55,9 @@ task cucumber() {
             args = ['--plugin', 'pretty', '--glue', 'trello.api.cucumber', 'src/test/resources/features']
         }
     }
+}
+
+cluecumberReports {
+    sourceJsonReportDirectory = "reports/cucumber-report/"
+    generatedHtmlReportDirectory = "reports/cucumber-report/html/"
 }

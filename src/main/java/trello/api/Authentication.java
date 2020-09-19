@@ -2,12 +2,13 @@ package trello.api;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
+import trello.util.Config;
 
 public class Authentication {
 
-    private static final String KEY = "";
-    private static final String BASE_URL = "";
-    private static final String TOKEN = "";
+    private static final String BASE_URL = Config.getInstance().getBaseUrl();
+    private static final String KEY = Config.getInstance().getKey();
+    private static final String TOKEN = Config.getInstance().getToken();
     private RequestSpecification requestSpecification;
 
     public Authentication() {

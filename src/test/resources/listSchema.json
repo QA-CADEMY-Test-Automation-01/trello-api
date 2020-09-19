@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "id",
+    "idBoard"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "closed": {
+      "type": "boolean"
+    },
+    "idBoard": {
+      "type": "string"
+    },
+    "pos": {
+      "type": "number"
+    }
+  }
+}

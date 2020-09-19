@@ -2,6 +2,8 @@ package trello.api.cucumber;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import trello.api.RequestManager;
 import trello.api.RequestType;
 
@@ -11,6 +13,7 @@ import java.util.Map;
 public class TrelloApiSteps {
 
     private Helper helper;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public TrelloApiSteps(Helper helper) {
         this.helper = helper;
@@ -19,13 +22,15 @@ public class TrelloApiSteps {
     @Given("endpoint {string}")
     public void endpoint(String endpoint) {
         System.out.println(endpoint);
-        this.helper.endpoint = endpoint;
+        LOGGER.info(endpoint);
+        this.helper.endpoint = endpoint.replace("[board.id]", this.helper.board.getId());
     }
 
     @Given("raw body:")
     public void rawBody(String rawBody) {
         System.out.println(rawBody);
-        this.helper.rawBody = rawBody;
+        this.helper.rawBody = rawBody.replace("[board.id]", this.helper.board.getId());
+        LOGGER.info(rawBody);
         this.helper.bodyType = BodyType.RAW;
     }
 
@@ -38,6 +43,7 @@ public class TrelloApiSteps {
     @When("^method (GET|POST|PUT|DELETE)$")
     public void setHttpMethod(RequestType httpMethod) {
         System.out.println(httpMethod);
+        LOGGER.info(httpMethod);
         if (RequestType.GET.equals(httpMethod)) {
             this.helper.response = RequestManager.get(this.helper.endpoint);
         }
@@ -50,9 +56,7 @@ public class TrelloApiSteps {
             }
         }
         if (RequestType.PUT.equals(httpMethod)) {
-            String endpoint = this.helper.endpoint.replace("[board.id]", this.helper.board.getId());
-            System.out.println(endpoint);
-            this.helper.response = RequestManager.put(endpoint, this.helper.rawBody);
+            this.helper.response = RequestManager.put(this.helper.endpoint, this.helper.rawBody);
         }
     }
 }
