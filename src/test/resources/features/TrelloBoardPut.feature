@@ -3,7 +3,7 @@ Feature: Verify Trello Board PUT method
 
   @CreateDeleteBoard
   Scenario: Verify status code 200 with valid data
-    Given endpoint "/1/boards/[board.id]"
+    Given endpoint "/1/boards/[Board.id]"
     And raw body:
     """
     {
