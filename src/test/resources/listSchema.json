@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "idBoard": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "id",
+    "idBoard"
+  ]
+}

@@ -5,9 +5,10 @@ import io.restassured.specification.RequestSpecification;
 
 public class Authentication {
 
-    private static final String KEY = "";
-    private static final String BASE_URL = "";
-    private static final String TOKEN = "";
+    private static final String BASE_URL = "https://api.trello.com";
+    private static final String KEY = "84efc26915c199f93ea4e172ed5b3653";
+    private static final String TOKEN = "caa3104197da9230f06a6408ee25f058771e111ff473ef9438f40f651f709241";
+
     private RequestSpecification requestSpecification;
 
     public Authentication() {
