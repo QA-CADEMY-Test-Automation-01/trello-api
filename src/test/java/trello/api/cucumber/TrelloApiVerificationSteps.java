@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 
 public class TrelloApiVerificationSteps {
@@ -29,10 +29,7 @@ public class TrelloApiVerificationSteps {
     @Then("response body contains {string}")
     public void responseBodyContains(String string) {
         LOGGER.info(string);
-        this.helper.response.then()
-                .statusCode(200)
-                .header("Content-Type", "application/json; charset=utf-8")
-                .body("[0].name", equalTo("Example"));
+        this.helper.response.then().assertThat().body(containsString(string));
     }
 
     @Then("response headers contains:")

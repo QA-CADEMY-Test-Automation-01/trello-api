@@ -19,6 +19,8 @@ public class Hooks {
         Board newBoard = new Board();
         newBoard.setName("Example");
         newBoard.setDesc("Sample Description");
+        newBoard.setDefaultLabels(false);
+        newBoard.setDefaultLists(false);
         this.helper.board = RequestManager.post("/1/boards", newBoard).as(Board.class);
     }
 

@@ -1,4 +1,4 @@
-@List @Test
+@List
 Feature: Verify Trello List POST method
 
   @CreateDeleteBoard

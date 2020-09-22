@@ -17,3 +17,4 @@ Feature: Verify Trello List POST method
     And response body contains:
       | name | List Example Updated |
     And JSON schema matches "listSchema.json"
+    And response body contains "name"

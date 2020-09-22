@@ -10,6 +10,24 @@ public class Board {
     private String id;
     private boolean closed;
     private String desc;
+    private boolean defaultLists;
+    private boolean defaultLabels;
+
+    public boolean isDefaultLists() {
+        return defaultLists;
+    }
+
+    public void setDefaultLists(boolean defaultLists) {
+        this.defaultLists = defaultLists;
+    }
+
+    public boolean isDefaultLabels() {
+        return defaultLabels;
+    }
+
+    public void setDefaultLabels(boolean defaultLabels) {
+        this.defaultLabels = defaultLabels;
+    }
 
     public String getName() {
         return name;
