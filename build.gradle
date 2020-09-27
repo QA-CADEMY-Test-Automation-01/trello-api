@@ -38,6 +38,11 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
     implementation 'de.monochromata.cucumber:reporting-plugin:4.0.84'
     implementation 'com.trivago.rta:cluecumber-report-plugin:2.5.0'
+
+    //Selenium
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    //Web Driver Manager
+    testCompile("io.github.bonigarcia:webdrivermanager:3.7.1")
 }
 
 configurations {
