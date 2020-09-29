@@ -23,6 +23,7 @@ public class main {
 //        driver.get("https://www.ebay.com/");
         driver.navigate().to("https://www.ebay.com/");
         //Close browser
+        
 //        driver.close();
         //Find element
         WebElement searchBox = driver.findElement(By.cssSelector("#gh-ac"));
