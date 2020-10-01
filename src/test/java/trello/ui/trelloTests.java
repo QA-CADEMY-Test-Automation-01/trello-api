@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class trelloTests {
     @Before
     public void setUp(){
         //Configure web driver manager
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
         //Headless Mode
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
@@ -27,7 +29,14 @@ public class trelloTests {
 //        driver.manage().window().setSize(new Dimension(1920, 1080));
 
         //Create driver adn open browser
-        driver = new ChromeDriver();
+//        driver = new ChromeDriver();
+
+        //Practice from day 3
+        WebDriverManager.firefoxdriver().setup();
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setHeadless(true);
+        driver = new FirefoxDriver(firefoxOptions);
+        driver.manage().window().setSize(new Dimension(1920, 1080));
     }
 
     @After
@@ -45,9 +54,11 @@ public class trelloTests {
             //Click login button
             WebElement loginHomeButton = driver.findElement(By.cssSelector("[href*='login']"));
             loginHomeButton.click();
+            sleep(3);
             //Set username
             WebElement nameField = driver.findElement(By.cssSelector("[autocomplete='username']"));
             nameField.sendKeys("joseccb1948@yahoo.com");
+            sleep(3);
             //Click login with Atlasian
             WebElement loginAtlasianButton = driver.findElement(By.cssSelector("#login"));
             loginAtlasianButton.click();
@@ -149,10 +160,8 @@ public class trelloTests {
     }
 
     @Test
-    public void testCreateList()
-    {
-        login();
-        driver.get("https://trello.com/b/LMdSVV6i/welcome-to-trello");
+    public void testCreateList() {
+        createBoard();
         //Refresh to make sure Add list button is visible
         driver.navigate().refresh();
         //Fill list data
@@ -170,6 +179,61 @@ public class trelloTests {
         Assert.assertEquals(expectedName, listName);
 
     }
+    //Practice from Day 3
+    @Test
+    public void testCreateCard(){
+        createList();
+        sleep(3);
+        //Open card creation form
+        WebElement addCardButton = driver.findElement(By.xpath("//textarea[text()='My new list']/parent::div/following-sibling::div/a"));
+        addCardButton.click();
+        //Fill card name
+        WebElement cardTextArea = driver.findElement(By.cssSelector(".list-card-composer-textarea"));
+        cardTextArea.sendKeys("My new card");
+        //Press Add card button
+        WebElement addButton = driver.findElement(By.cssSelector(".js-add-card"));
+        addButton.click();
+        //Validate card name
+        sleep(3);
+        WebElement cardCreated = driver.findElement(By.xpath("//span[text()='My new card']"));
+        String cardName = cardCreated.getText();
+        String expectedCardName = "My new card";
+        Assert.assertEquals(expectedCardName, cardName);
+    }
+    //Practice from Day 3
+    @Test
+    public void testCreateBoardFromPlusButton(){
+        login();
+        sleep(6);
+        //Open create board form
+        WebElement plusButton = driver.findElement(By.cssSelector("[data-test-id='header-create-menu-button']"));
+        plusButton.click();
+        //Click Create board button in popup
+        WebElement createBoardButton = driver.findElement(By.cssSelector("[data-test-id='header-create-board-button']"));
+        createBoardButton.click();
+        //Set board name
+        WebElement titleBox = driver.findElement(By.cssSelector("[data-test-id='create-board-title-input']"));
+        titleBox.sendKeys("My board");
+        //Select public option
+        WebElement privateButton = driver.findElement(By.cssSelector("[aria-label='PrivateIcon']"));
+        privateButton.click();
+        WebElement publicOption = driver.findElement(By.xpath("//div[@class='atlaskit-portal']/descendant::ul/li[2]"));
+        publicOption.click();
+        WebElement confirmButton = driver.findElement(By.xpath("//div[@class='atlaskit-portal']/descendant::div/button"));
+        confirmButton.click();
+        //Press create board
+        WebElement createButton = driver.findElement(By.cssSelector("[data-test-id='create-board-submit-button']"));
+        createButton.click();
+        sleep(5);
+        //Validate board name
+        WebElement boardLabel = driver.findElement(By.cssSelector(".mod-board-name"));
+        String boardName = boardLabel.getText();
+        String expectedName = "My board";
+
+        Assert.assertEquals(expectedName, boardName);
+
+    }
+
     public void sleep(int timeInSeconds){
         try{
             Thread.sleep(timeInSeconds*1000);
@@ -182,7 +246,10 @@ public class trelloTests {
     public void createList(){
         createBoard();
         driver.navigate().refresh();
-        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
+        sleep(10);
+//        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
+        //Practice from Day 3: Firefox driver needs another selector to click on Add list button
+        WebElement addListButton = driver.findElement(By.cssSelector(".js-add-list"));
         addListButton.click();
         WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));
         listNameField.sendKeys("My new list");
@@ -218,13 +285,15 @@ public class trelloTests {
         //Click login button
         WebElement loginHomeButton = driver.findElement(By.cssSelector("[href='/login']"));
         loginHomeButton.click();
+        sleep(6);
         //Set username
         WebElement nameField = driver.findElement(By.cssSelector("[autocomplete='username']"));
         nameField.sendKeys("joseccb1948@yahoo.com");
+        sleep(3);
         //Click login with Atlasian
         WebElement loginAtlasianButton = driver.findElement(By.cssSelector("#login"));
         loginAtlasianButton.click();
-        sleep(3);
+        sleep(5);
         //Set password
         WebElement passwordField = driver.findElement(By.cssSelector("#password"));
         passwordField.sendKeys("Control*1234");
