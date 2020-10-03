@@ -192,44 +192,53 @@ public class trelloTests {
         Assert.assertTrue(dueDate.contains("Oct 1"));
     }
 
+    //Practice Day 4
     @Test
     public void testCreateList() {
         createBoard();
         //Refresh to make sure Add list button is visible
         driver.navigate().refresh();
         //Fill list data
-        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
-        addListButton.click();
-        WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));
-        listNameField.sendKeys("My new list");
+//        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
+//        addListButton.click();
+        action.click(By.cssSelector(".open-add-list"));
+//        WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));
+//        listNameField.sendKeys("My new list");
+        action.sendText(By.cssSelector(".list-name-input"), "My new list");
         //Press add button
-        WebElement modalAddButton = driver.findElement(By.cssSelector(".mod-list-add-button"));
-        modalAddButton.click();
+//        WebElement modalAddButton = driver.findElement(By.cssSelector(".mod-list-add-button"));
+//        modalAddButton.click();
+        action.click(By.cssSelector(".mod-list-add-button"));
         //Validate the name of created list
-        WebElement listLabel = driver.findElement(By.xpath("//textarea[text()='My new list']"));
-        String listName = listLabel.getText();
+//        WebElement listLabel = driver.findElement(By.xpath("//textarea[text()='My new list']"));
+//        String listName = listLabel.getText();
+        String listName = action.getText(By.xpath("//textarea[text()='My new list']"));
         String expectedName = "My new list";
         Assert.assertEquals(expectedName, listName);
 
     }
-
+    //Practice Day 4
     @Test
     public void testCreateCard(){
         createList();
 //        sleep(3);
         //Open card creation form
-        WebElement addCardButton = driver.findElement(By.xpath("//textarea[text()='My new list']/parent::div/following-sibling::div/a"));
-        addCardButton.click();
+//        WebElement addCardButton = driver.findElement(By.xpath("//textarea[text()='My new list']/parent::div/following-sibling::div/a"));
+//        addCardButton.click();
+        action.click(By.xpath("//textarea[text()='My new list']/parent::div/following-sibling::div/a"));
         //Fill card name
-        WebElement cardTextArea = driver.findElement(By.cssSelector(".list-card-composer-textarea"));
-        cardTextArea.sendKeys("My new card");
+//        WebElement cardTextArea = driver.findElement(By.cssSelector(".list-card-composer-textarea"));
+//        cardTextArea.sendKeys("My new card");
+        action.sendText(By.cssSelector(".list-card-composer-textarea"), "My new card");
         //Press Add card button
-        WebElement addButton = driver.findElement(By.cssSelector(".js-add-card"));
-        addButton.click();
+//        WebElement addButton = driver.findElement(By.cssSelector(".js-add-card"));
+//        addButton.click();
+        action.click(By.cssSelector(".js-add-card"));
         //Validate card name
 //        sleep(3);
-        WebElement cardCreated = driver.findElement(By.xpath("//span[text()='My new card']"));
-        String cardName = cardCreated.getText();
+//        WebElement cardCreated = driver.findElement(By.xpath("//span[text()='My new card']"));
+//        String cardName = cardCreated.getText();
+        String cardName = action.getText(By.xpath("//span[text()='My new card']"));
         String expectedCardName = "My new card";
         Assert.assertEquals(expectedCardName, cardName);
     }
@@ -267,26 +276,21 @@ public class trelloTests {
 
     }
 
-    public void sleep(int timeInSeconds){
-        try{
-            Thread.sleep(timeInSeconds*1000);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
+    //Practice Day 4
     public void createList(){
         createBoard();
         driver.navigate().refresh();
 //        sleep(10);
 //        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
-        WebElement addListButton = driver.findElement(By.cssSelector(".js-add-list"));
-        addListButton.click();
-        WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));
-        listNameField.sendKeys("My new list");
-        WebElement modalAddButton = driver.findElement(By.cssSelector(".mod-list-add-button"));
-        modalAddButton.click();
+//        WebElement addListButton = driver.findElement(By.cssSelector(".js-add-list"));
+//        addListButton.click();
+        action.click(By.cssSelector(".js-add-list"));
+//        WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));
+//        listNameField.sendKeys("My new list");
+        action.sendText(By.cssSelector(".list-name-input"), "My new list");
+//        WebElement modalAddButton = driver.findElement(By.cssSelector(".mod-list-add-button"));
+//        modalAddButton.click();
+        action.click(By.cssSelector(".mod-list-add-button"));
     }
 
     public void createBoard(){
@@ -317,6 +321,7 @@ public class trelloTests {
 //        createButton.click();
         action.click(By.cssSelector("[data-test-id='create-board-submit-button']"));
 //        sleep(5);
+        action.isElementVisible(By.cssSelector(".mod-board-name"));
     }
 
     public void login(){
