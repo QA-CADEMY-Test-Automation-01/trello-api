@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class WebDriverAction {
     WebDriver driver;
     WebDriverWait wait;
+
     public WebDriverAction(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
         this.wait = wait;
@@ -17,8 +18,8 @@ public class WebDriverAction {
     //Clicks element given a locator
     //previously makes sure that the element is clickable through explicit wait
     public void click(By locator){
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-        driver.findElement(locator).click();
+        WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        clickable.click();
     }
     //Sends text to element given a locator
     //previously makes sure that the element is clickable through explicit wait
@@ -36,6 +37,15 @@ public class WebDriverAction {
     public boolean isElementVisible(By locator){
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch(NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public boolean attributeContains(By locator, String attribute, String value){
+        try {
+            wait.until(ExpectedConditions.attributeContains(locator, attribute, value));
             return true;
         } catch(NoSuchElementException e){
             return false;

@@ -42,7 +42,9 @@ dependencies {
     //Selenium
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     //Web Driver Manager
-    testCompile("io.github.bonigarcia:webdrivermanager:3.7.1")
+//    testCompile("io.github.bonigarcia:webdrivermanager:3.7.1")
+    //Modified to WebDriverManager be visible in the whole project not only in tests
+    implementation "io.github.bonigarcia:webdrivermanager:3.7.1"
 }
 
 configurations {
