@@ -5,21 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import trello.ui.core.WebDriverAction;
 
-public class Welcome {
+public class CreateMenu {
     private WebDriver driver;
     private WebDriverWait wait;
     private WebDriverAction action;
-    private By loginButton = By.cssSelector("[href*='login']");
+    private By createBoardOption = By.cssSelector("[data-test-id='header-create-board-button']");
 
-    public Welcome(WebDriver driver){
+    public CreateMenu(WebDriver driver){
         this.driver = driver;
         this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(this.driver, wait);
-        this.driver.get("https://trello.com/");
+        this.action = new WebDriverAction(driver, wait);
     }
 
-    public Login login(){
-        action.click(loginButton);
-        return new Login(this.driver);
+    public BoardForm openCreateBoardForm(){
+        action.click(createBoardOption);
+        return new BoardForm(this.driver);
     }
 }

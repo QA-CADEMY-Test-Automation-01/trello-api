@@ -10,7 +10,7 @@ public class Header {
     private WebDriverWait wait;
     private WebDriverAction action;
     private By profileButton = By.cssSelector("[data-test-id='header-member-menu-button']");
-
+    private By addButton = By.cssSelector("[data-test-id='header-create-menu-button']");
 
     public Header(WebDriver driver){
         this.driver = driver;
@@ -21,5 +21,10 @@ public class Header {
     public Profile goToProfileMenu(){
         action.click(profileButton);
         return new Profile(this.driver);
+    }
+
+    public CreateMenu openCreateMenu(){
+        action.click(addButton);
+        return new CreateMenu(this.driver);
     }
 }

@@ -15,6 +15,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import trello.ui.core.Driver;
 import trello.ui.core.WebDriverAction;
+import trello.ui.pages.Board;
+import trello.ui.pages.BoardForm;
+import trello.ui.pages.CreateMenu;
 import trello.ui.pages.Header;
 import trello.ui.pages.Login;
 import trello.ui.pages.Profile;
@@ -33,7 +36,7 @@ public class trelloTestsPOM {
     @Before
     public void setUp(){
         //Configure web driver manager
-//        WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
         //Headless Mode
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
@@ -42,7 +45,7 @@ public class trelloTestsPOM {
 //        driver.manage().window().setSize(new Dimension(1920, 1080));
 
         //Create driver adn open browser
-        driver = new Driver().initDriver();
+        driver = new ChromeDriver();//Driver().initDriver();
 //        login = new Login(driver);
 //        header = new Header(driver);
 
@@ -69,98 +72,21 @@ public class trelloTestsPOM {
         String actualEmail = profile.getEmailAccount();
         String expectedEmail = "joseccb1948@yahoo.com";
         Assert.assertEquals(expectedEmail, actualEmail);
-//            driver.manage().window().maximize();
-//            driver.get("https://trello.com/");
-
-////            sleep(3);
-//            //Click login button
-////            WebElement loginHomeButton = driver.findElement(By.cssSelector("[href*='login']"));
-////            loginHomeButton.click();
-//            //Replacing findElement by action function that handles click action by explicit waits
-//            action.click(By.cssSelector("[href*='login']"));
-//            //Set username
-////            WebElement nameField = driver.findElement(By.cssSelector("[autocomplete='username']"));
-////            WebElement nameField = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[autocomplete='username']")));
-////            nameField.sendKeys("joseccb1948@yahoo.com");
-//            action.sendText(By.cssSelector("[autocomplete='username']"), "joseccb1948@yahoo.com");
-//            //Explicit wait used to wait for the login button to change name before continue
-//            wait.until(ExpectedConditions.attributeContains(By.cssSelector("#login"), "value", "Atlassian"));
-//
-//            //Click login with Atlasian
-////            WebElement loginAtlasianButton = driver.findElement(By.cssSelector("#login"));
-////            loginAtlasianButton.click();
-//            //Replacing findElement by action function that handles click action by explicit waits
-//            action.click(By.cssSelector("#login"));
-//            //Set password
-////            WebElement passwordField = driver.findElement(By.cssSelector("#password"));
-////            passwordField.sendKeys("Control*1234");
-//            action.sendText(By.cssSelector("#password"), "Control*1234");
-//            //Click login
-////            WebElement loginButton = driver.findElement(By.cssSelector("#login-submit"));
-////            loginButton.click();
-//            //Replacing findElement by action function that handles click action by explicit waits
-//            action.click(By.cssSelector("#login-submit"));
-////            sleep(15);
-//            //Click profile button
-////            WebElement profileButton = driver.findElement(By.cssSelector("[data-test-id='header-member-menu-button']"));
-////            profileButton.click();
-//            //Replacing findElement by action function that handles click action by explicit waits
-//            action.click(By.cssSelector("[data-test-id='header-member-menu-button']"));
-//
-////            sleep(2);
-//            //Get account email
-//            WebElement accountLabel = driver.findElement(By.xpath("//section[@data-test-id='header-member-menu-popover']/descendant::ul/div/div/span"));
-//            String accountEmail = accountLabel.getText();
-//            //Print current page data
-//            String title = driver.getTitle();
-//            String url = driver.getCurrentUrl();
-//            System.out.println("Current title: " + title);
-//            System.out.println("Current URL: " + url);
-//
-//            //Validate username displayed in profile button
-//            String expectedEmail = "joseccb1948@yahoo.com";
-//            Assert.assertEquals(expectedEmail, accountEmail);
-
     }
 
-//    @Test
-//    public void testCreateBoard(){
-//        login();
-//        //Open create board form
-////        WebElement boardsButton = driver.findElement(By.cssSelector("[href*='boards']"));
-////        boardsButton.click();
-//        action.click(By.cssSelector("[href*='boards']"));
-////        WebElement newBoardButton = driver.findElement(By.cssSelector(".mod-add"));
-////        newBoardButton.click();
-//        action.click(By.cssSelector(".mod-add"));
-//        //Set board name
-////        WebElement titleBox = driver.findElement(By.cssSelector("[data-test-id='create-board-title-input']"));
-////        titleBox.sendKeys("My board");
-//        action.sendText(By.cssSelector("[data-test-id='create-board-title-input']"), "My board");
-//        //Select public option
-////        WebElement privateButton = driver.findElement(By.cssSelector(".icon-private"));
-////        privateButton.click();
-//        action.click(By.cssSelector(".icon-private"));
-////        WebElement publicOption = driver.findElement(By.cssSelector(".icon-public"));
-////        publicOption.click();
-//        action.click(By.cssSelector(".icon-public"));
-////        WebElement confirmButton = driver.findElement(By.cssSelector(".js-confirm"));
-////        confirmButton.click();
-//        action.click(By.cssSelector(".js-confirm"));
-//        //Press create board
-////        WebElement createButton = driver.findElement(By.cssSelector("[data-test-id='create-board-submit-button']"));
-////        createButton.click();
-//        action.click(By.cssSelector("[data-test-id='create-board-submit-button']"));
-////        sleep(5);
-//        //Validate board name
-////        WebElement boardLabel = driver.findElement(By.cssSelector(".mod-board-name"));
-//        WebElement boardLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".mod-board-name")));
-//        String boardName = boardLabel.getText();
-//        String expectedName = "My board";
-//
-//        Assert.assertEquals(expectedName, boardName);
-//    }
-//
+    @Test
+    public void testCreateBoard(){
+        Welcome welcome = new Welcome(driver);
+        Login login = welcome.login();
+        Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
+        CreateMenu createMenu = header.openCreateMenu();
+        BoardForm boardForm = createMenu.openCreateBoardForm();
+        Board board = boardForm.createBoard("My board");
+        String actualName = board.getBoardName();
+        String expectedName = "My board";
+        Assert.assertEquals(expectedName, actualName);
+    }
+
 //    @Test
 //    public void testAddDueDate(){
 //        login();
