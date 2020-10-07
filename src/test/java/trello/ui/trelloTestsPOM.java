@@ -5,33 +5,20 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.Driver;
-import trello.ui.core.WebDriverAction;
 import trello.ui.pages.Board;
 import trello.ui.pages.BoardForm;
 import trello.ui.pages.CreateMenu;
 import trello.ui.pages.Header;
+import trello.ui.pages.ListCreated;
+import trello.ui.pages.ListForm;
 import trello.ui.pages.Login;
 import trello.ui.pages.Profile;
 import trello.ui.pages.Welcome;
 
-import java.util.List;
-
 public class trelloTestsPOM {
     private WebDriver driver;
-
-    //WebDriverWait object to handle the timeout and expected conditions of explicit wait
-//    private WebDriverWait wait;
-    //Custom object to handle explicit waits for clickable elements
-//    private WebDriverAction action;
 
     @Before
     public void setUp(){
@@ -79,12 +66,30 @@ public class trelloTestsPOM {
         Welcome welcome = new Welcome(driver);
         Login login = welcome.login();
         Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
+
         CreateMenu createMenu = header.openCreateMenu();
         BoardForm boardForm = createMenu.openCreateBoardForm();
         Board board = boardForm.createBoard("My board");
         String actualName = board.getBoardName();
         String expectedName = "My board";
         Assert.assertEquals(expectedName, actualName);
+    }
+
+    @Test
+    public void testCreateList(){
+        Welcome welcome = new Welcome(driver);
+        Login login = welcome.login();
+        Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
+        CreateMenu createMenu = header.openCreateMenu();
+        BoardForm boardForm = createMenu.openCreateBoardForm();
+        Board board = boardForm.createBoard("My board");
+
+        ListForm listForm = board.openListForm();
+        ListCreated listCreated = listForm.createList("My list");
+        String actualName = listCreated.getListName();
+        String expectedName = "My list";
+        Assert.assertEquals(actualName, expectedName);
+
     }
 
 //    @Test
@@ -128,9 +133,10 @@ public class trelloTestsPOM {
 //    public void testCreateList() {
 //        createBoard();
 //        //Refresh to make sure Add list button is visible
+//        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
 //        driver.navigate().refresh();
-//        //Fill list data
-////        WebElement addListButton = driver.findElement(By.cssSelector(".open-add-list"));
+//        addListButton.click();
+        //Fill list data
 ////        addListButton.click();
 //        action.click(By.cssSelector(".open-add-list"));
 ////        WebElement listNameField = driver.findElement(By.cssSelector(".list-name-input"));

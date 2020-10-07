@@ -2,19 +2,15 @@ package trello.ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.WebDriverAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class Welcome {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private WebDriverAction action;
-    private By loginButton = By.cssSelector("[href*='login']");
+public class Welcome extends AbstractPageObject {
+    @FindBy(css = "[href*='login']")
+    private WebElement loginButton;
 
     public Welcome(WebDriver driver){
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(this.driver, wait);
+        super(driver);
         this.driver.get("https://trello.com/");
     }
 

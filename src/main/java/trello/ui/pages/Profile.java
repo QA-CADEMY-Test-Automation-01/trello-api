@@ -1,21 +1,15 @@
 package trello.ui.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.WebDriverAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class Profile {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private WebDriverAction action;
-    private By emailLabel = By.xpath("//section[@data-test-id='header-member-menu-popover']/descendant::ul/div/div/span");
-
+public class Profile extends AbstractPageObject{
+    @FindBy(xpath = "//section[@data-test-id='header-member-menu-popover']/descendant::ul/div/div/span")
+    private WebElement emailLabel;
 
     public Profile(WebDriver driver){
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(driver, wait);
+        super(driver);
     }
 
     public String getEmailAccount(){

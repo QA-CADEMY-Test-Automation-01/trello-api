@@ -1,23 +1,31 @@
 package trello.ui.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.WebDriverAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class Board {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private WebDriverAction action;
-    private By boardName = By.cssSelector(".mod-board-name");
+public class Board extends AbstractPageObject {
+    @FindBy(css = ".mod-board-name")
+    private WebElement boardName;
+
+    @FindBy(css = ".open-add-list")
+    private WebElement addListButton;
+
+    @FindBy(css = ".mod-board-name")
+    private WebElement boardNameLabel;
 
     public Board(WebDriver driver){
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(driver, wait);
+        super(driver);
     }
 
     public String getBoardName(){
         return action.getText(boardName);
+    }
+
+    public ListForm openListForm(){
+        action.isElementVisible(boardNameLabel);
+        driver.navigate().refresh();
+        action.click(addListButton);
+        return new ListForm(this.driver);
     }
 }

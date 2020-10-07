@@ -1,21 +1,18 @@
 package trello.ui.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.WebDriverAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class Header {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private WebDriverAction action;
-    private By profileButton = By.cssSelector("[data-test-id='header-member-menu-button']");
-    private By addButton = By.cssSelector("[data-test-id='header-create-menu-button']");
+public class Header extends AbstractPageObject {
+    @FindBy(css="[data-test-id='header-member-menu-button']")
+    private WebElement profileButton;
+
+    @FindBy(css="[data-test-id='header-create-menu-button']")
+    private WebElement addButton;
 
     public Header(WebDriver driver){
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(driver, wait);
+        super(driver);
     }
 
     public Profile goToProfileMenu(){

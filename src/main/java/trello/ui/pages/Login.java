@@ -1,24 +1,24 @@
 package trello.ui.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import trello.ui.core.WebDriverAction;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class Login {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private WebDriverAction action;
-    private By userName = By.cssSelector("[autocomplete='username']");
-    private By password = By.cssSelector("#password");
-    private By loginButton = By.cssSelector("#login");
-    private By loginButtonSubmit = By.cssSelector("#login-submit");
+public class Login extends AbstractPageObject{
+    @FindBy(css = "[autocomplete='username']")
+    private WebElement userName;
 
+    @FindBy(css = "#password")
+    private WebElement password;
+
+    @FindBy(css = "#login")
+    private WebElement loginButton;
+
+    @FindBy(css = "#login-submit")
+    private WebElement loginButtonSubmit;
 
     public Login(WebDriver driver){
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, 20);
-        this.action = new WebDriverAction(driver, wait);
+        super(driver);
     }
 
     public Header login(String userName, String password){
