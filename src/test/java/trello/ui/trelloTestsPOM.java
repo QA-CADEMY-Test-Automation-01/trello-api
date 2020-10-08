@@ -7,15 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import trello.ui.pages.Board;
-import trello.ui.pages.BoardForm;
-import trello.ui.pages.CreateMenu;
-import trello.ui.pages.Header;
-import trello.ui.pages.ListCreated;
-import trello.ui.pages.ListForm;
-import trello.ui.pages.Login;
-import trello.ui.pages.Profile;
-import trello.ui.pages.Welcome;
+import trello.ui.pages.*;
 
 public class trelloTestsPOM {
     private WebDriver driver;
@@ -88,6 +80,25 @@ public class trelloTestsPOM {
         ListCreated listCreated = listForm.createList("My list");
         String actualName = listCreated.getListName();
         String expectedName = "My list";
+        Assert.assertEquals(actualName, expectedName);
+
+    }
+
+    @Test
+    public void testCreateCard(){
+        Welcome welcome = new Welcome(driver);
+        Login login = welcome.login();
+        Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
+        CreateMenu createMenu = header.openCreateMenu();
+        BoardForm boardForm = createMenu.openCreateBoardForm();
+        Board board = boardForm.createBoard("My board");
+        ListForm listForm = board.openListForm();
+        ListCreated listCreated = listForm.createList("My list");
+
+        CardForm cardForm = listCreated.openCardForm();
+        Card card = cardForm.createCard("My card");
+        String actualName = card.getCardTitle("My card");
+        String expectedName = "My card";
         Assert.assertEquals(actualName, expectedName);
 
     }

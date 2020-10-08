@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class Board extends AbstractPageObject {
+
     @FindBy(css = ".mod-board-name")
     private WebElement boardName;
 
@@ -14,18 +15,18 @@ public class Board extends AbstractPageObject {
     @FindBy(css = ".mod-board-name")
     private WebElement boardNameLabel;
 
-    public Board(WebDriver driver){
+    public Board(WebDriver driver) {
         super(driver);
     }
 
-    public String getBoardName(){
-        return action.getText(boardName);
+    public String getBoardName() {
+        return action.getText(this.boardName);
     }
 
-    public ListForm openListForm(){
-        action.isElementVisible(boardNameLabel);
+    public ListForm openListForm() {
+        action.isElementVisible(this.boardNameLabel);
         driver.navigate().refresh();
-        action.click(addListButton);
+        action.click(this.addListButton);
         return new ListForm(this.driver);
     }
 }

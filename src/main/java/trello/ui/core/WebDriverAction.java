@@ -10,74 +10,84 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.nio.file.WatchEvent;
 
 public class WebDriverAction {
-    WebDriver driver;
-    WebDriverWait wait;
 
-    public WebDriverAction(WebDriver driver, WebDriverWait wait){
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    public WebDriverAction(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
     }
+
     //Clicks element given a locator
     //previously makes sure that the element is clickable through explicit wait
-    public void click(By locator){
-        WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(locator));
-        clickable.click();
+    public void click(By locator) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.click();
     }
-    public void click(WebElement element){
+
+    public void click(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.click();
     }
+
     //Sends text to element given a locator
     //previously makes sure that the element is clickable through explicit wait
-    public void sendText(By locator, String text){
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-        driver.findElement(locator).sendKeys(text);
+    public void sendText(By locator, String text) {
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        element.sendKeys(text);
     }
-    public void sendText(WebElement element, String text){
+
+    public void sendText(WebElement element, String text) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
         element.sendKeys(text);
     }
+
     //Gets text from a given locator
     //previously verifies if element is visible
-    public String getText(By locator){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return driver.findElement(locator).getText();
+    public String getText(By locator) {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return element.getText();
     }
-    public String getText(WebElement element){
+
+    public String getText(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
         return element.getText();
     }
+
     //Waits for element to be visible
-    public boolean isElementVisible(By locator){
+    public boolean isElementVisible(By locator) {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
             return true;
-        } catch(NoSuchElementException e){
-            return false;
-        }
-    }
-    public boolean isElementVisible(WebElement element){
-        try {
-            wait.until(ExpectedConditions.visibilityOf(element));
-            return true;
-        } catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    public boolean attributeContains(By locator, String attribute, String value){
+    public boolean isElementVisible(WebElement element) {
         try {
-            wait.until(ExpectedConditions.attributeContains(locator, attribute, value));
+            wait.until(ExpectedConditions.visibilityOf(element));
             return true;
-        } catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
-    public boolean attributeContains(WebElement element, String attribute, String value){
+
+    public boolean attributeContains(By locator, String attribute, String value) {
+        try {
+            wait.until(ExpectedConditions.attributeContains(locator, attribute, value));
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean attributeContains(WebElement element, String attribute, String value) {
         try {
             wait.until(ExpectedConditions.attributeContains(element, attribute, value));
             return true;
-        } catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }

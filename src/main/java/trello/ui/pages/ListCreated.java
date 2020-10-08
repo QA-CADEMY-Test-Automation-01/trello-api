@@ -5,14 +5,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ListCreated extends AbstractPageObject {
-    @FindBy(css=".list-header")
-    WebElement listNameLabel;
 
-    public ListCreated(WebDriver driver){
+    @FindBy(css = ".list-header")
+    private WebElement listNameLabel;
+
+    @FindBy(css = ".open-card-composer")
+    private WebElement addCardButton;
+
+    public ListCreated(WebDriver driver) {
         super(driver);
     }
 
-    public String getListName(){
-        return action.getText(listNameLabel);
+    public String getListName() {
+        return action.getText(this.listNameLabel);
+    }
+
+    public CardForm openCardForm() {
+        action.click(this.addCardButton);
+        return new CardForm(this.driver);
     }
 }

@@ -9,12 +9,12 @@ public class Welcome extends AbstractPageObject {
     @FindBy(css = "[href*='login']")
     private WebElement loginButton;
 
-    public Welcome(WebDriver driver){
+    public Welcome(WebDriver driver) {
         super(driver);
         this.driver.get("https://trello.com/");
     }
 
-    public Login login(){
+    public Login login() {
         action.click(loginButton);
         return new Login(this.driver);
     }

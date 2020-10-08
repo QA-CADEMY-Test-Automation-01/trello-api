@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class Login extends AbstractPageObject{
+public class Login extends AbstractPageObject {
     @FindBy(css = "[autocomplete='username']")
     private WebElement userName;
 
@@ -17,11 +17,11 @@ public class Login extends AbstractPageObject{
     @FindBy(css = "#login-submit")
     private WebElement loginButtonSubmit;
 
-    public Login(WebDriver driver){
+    public Login(WebDriver driver) {
         super(driver);
     }
 
-    public Header login(String userName, String password){
+    public Header login(String userName, String password) {
         action.sendText(this.userName, userName);
         action.attributeContains(loginButton, "value", "Atlassian");
         action.click(loginButton);

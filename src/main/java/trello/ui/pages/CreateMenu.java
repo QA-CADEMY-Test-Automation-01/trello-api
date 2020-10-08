@@ -9,12 +9,12 @@ public class CreateMenu extends AbstractPageObject {
     @FindBy(css = "[data-test-id='header-create-board-button']")
     private WebElement createBoardOption;
 
-    public CreateMenu(WebDriver driver){
+    public CreateMenu(WebDriver driver) {
         super(driver);
     }
 
-    public BoardForm openCreateBoardForm(){
-        action.click(createBoardOption);
+    public BoardForm openCreateBoardForm() {
+        action.click(this.createBoardOption);
         return new BoardForm(this.driver);
     }
 }
