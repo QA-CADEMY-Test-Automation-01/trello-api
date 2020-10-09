@@ -45,6 +45,11 @@ dependencies {
 //    testCompile("io.github.bonigarcia:webdrivermanager:3.7.1")
     //Modified to WebDriverManager be visible in the whole project not only in tests
     implementation "io.github.bonigarcia:webdrivermanager:3.7.1"
+
+    //Json libraries
+
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.1.0'
 }
 
 configurations {

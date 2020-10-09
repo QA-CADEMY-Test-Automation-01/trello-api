@@ -1,6 +1,5 @@
 package trello.ui.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -12,16 +11,12 @@ public class ListCreated extends AbstractPageObject {
     @FindBy(css = ".open-card-composer")
     private WebElement addCardButton;
 
-    public ListCreated(WebDriver driver) {
-        super(driver);
-    }
-
     public String getListName() {
         return action.getText(this.listNameLabel);
     }
 
     public CardForm openCardForm() {
         action.click(this.addCardButton);
-        return new CardForm(this.driver);
+        return new CardForm();
     }
 }

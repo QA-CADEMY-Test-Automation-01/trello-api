@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import trello.ui.core.DriverManager;
 import trello.ui.pages.*;
 
 public class trelloTestsPOM {
@@ -15,7 +16,7 @@ public class trelloTestsPOM {
     @Before
     public void setUp(){
         //Configure web driver manager
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
         //Headless Mode
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("--headless");
@@ -24,7 +25,7 @@ public class trelloTestsPOM {
 //        driver.manage().window().setSize(new Dimension(1920, 1080));
 
         //Create driver adn open browser
-        driver = new ChromeDriver();//Driver().initDriver();
+//        driver = new ChromeDriver();//Driver().initDriver();
 //        login = new Login(driver);
 //        header = new Header(driver);
 
@@ -39,12 +40,13 @@ public class trelloTestsPOM {
     @After
     public void tearDown(){
         //Close browser
-        driver.quit();
+//        driver.quit();
+        DriverManager.getInstance().getDriver().quit();
     }
 
     @Test
     public void testLogin() {
-        Welcome welcome = new Welcome(driver);
+        Welcome welcome = new Welcome();
         Login login = welcome.login();
         Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
         Profile profile = header.goToProfileMenu();
@@ -55,7 +57,7 @@ public class trelloTestsPOM {
 
     @Test
     public void testCreateBoard(){
-        Welcome welcome = new Welcome(driver);
+        Welcome welcome = new Welcome();
         Login login = welcome.login();
         Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
 
@@ -69,7 +71,7 @@ public class trelloTestsPOM {
 
     @Test
     public void testCreateList(){
-        Welcome welcome = new Welcome(driver);
+        Welcome welcome = new Welcome();
         Login login = welcome.login();
         Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
         CreateMenu createMenu = header.openCreateMenu();
@@ -86,7 +88,7 @@ public class trelloTestsPOM {
 
     @Test
     public void testCreateCard(){
-        Welcome welcome = new Welcome(driver);
+        Welcome welcome = new Welcome();
         Login login = welcome.login();
         Header header = login.login("joseccb1948@yahoo.com", "Control*1234");
         CreateMenu createMenu = header.openCreateMenu();
@@ -97,7 +99,7 @@ public class trelloTestsPOM {
 
         CardForm cardForm = listCreated.openCardForm();
         Card card = cardForm.createCard("My card");
-        String actualName = card.getCardTitle("My card");
+        String actualName = card.getCardByTitle("My card");
         String expectedName = "My card";
         Assert.assertEquals(actualName, expectedName);
 
