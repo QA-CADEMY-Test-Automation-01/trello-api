@@ -7,13 +7,14 @@ Feature: Boards
     Given I open board creation form
     When I create a board with title "My board"
     Then I should see board page loaded with "My board"
+@board
+  Scenario: Create a board with data parameters
+    Given I open board creation form
+    When I create a board with following data
+      | Title | My Board       |
+      | Theme | pink jellyfish |
+#    When I create a board with following data
+#      | Title    | Theme          |
+#      | My Board | pink jellyfish |
+    Then I should see board page loaded with "My Board"
 
-  Scenario: Test
-    Given I have a the following card
-      | Description | Description card |
-      | Activity    | Starting task    |
-      | DueDate     | 10/14/2020       |
-#      Given I have the following boards
-#      | Title | Private |
-#      | my board1    | yes    |
-#      | my board2     | no       |

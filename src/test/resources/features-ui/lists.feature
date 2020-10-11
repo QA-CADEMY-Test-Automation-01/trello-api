@@ -8,5 +8,5 @@ Feature: Lists
 
   Scenario: Create a list
     Given I open list creation form
-    And I create the list with name "My List"
+    When I create the list with name "My List"
     Then I should see the title "My List" in list
