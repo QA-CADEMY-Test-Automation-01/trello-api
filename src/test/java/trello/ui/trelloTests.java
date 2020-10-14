@@ -162,6 +162,14 @@ public class trelloTests {
         //Load card
         driver.get("https://trello.com/c/Pd3nLwWm/2-implement-login");
 //        sleep(3);
+
+        WebElement attachButton = driver.findElement(By.cssSelector(".button-link.js-attach"));
+        attachButton.click();
+
+        WebElement attachFile = driver.findElement(By.cssSelector(".js-attach-file"));
+        attachFile.sendKeys("D:\\otros\\webUI\\repo\\trello-api\\environment.json");
+
+
         //Expand Due Date
         WebElement dueDateButton = driver.findElement(By.cssSelector(".js-add-due-date"));
         dueDateButton.click();
@@ -207,7 +215,7 @@ public class trelloTests {
         action.sendText(By.cssSelector(".list-name-input"), "My new list");
         //Press add button
 //        WebElement modalAddButton = driver.findElement(By.cssSelector(".mod-list-add-button"));
-//        modalAddButton.click();
+//        m...lodalAddButton.click();
         action.click(By.cssSelector(".mod-list-add-button"));
         //Validate the name of created list
 //        WebElement listLabel = driver.findElement(By.xpath("//textarea[text()='My new list']"));

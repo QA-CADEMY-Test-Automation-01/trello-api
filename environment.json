@@ -1,3 +1,5 @@
 {
-  "browser": "chrome"
+  "browser": "chrome",
+  "attachment_path": "D:\\otros\\webUI\\repo\\trello-api\\src\\test\\resources\\test-files\\attachment.txt",
+  "attachment_name": "attachment.txt"
 }

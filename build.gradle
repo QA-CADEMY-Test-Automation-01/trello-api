@@ -9,7 +9,7 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-    id 'de.javaansehz.cluecumber-report-gradle-plugin' version "1.1.5"
+    id 'de.javaansehz.cluecumber-report-gradle-plugin' version "1.2.1"
 }
 
 repositories {

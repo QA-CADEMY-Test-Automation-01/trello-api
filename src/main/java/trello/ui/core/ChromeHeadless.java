@@ -11,6 +11,7 @@ public class ChromeHeadless extends AbstractDriver{
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
+        options.addArguments("--window-size=1920,1080");
         return new ChromeDriver(options);
     }
 }
