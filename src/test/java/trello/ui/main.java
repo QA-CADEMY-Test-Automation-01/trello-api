@@ -57,10 +57,17 @@ public class main {
 //        WebElement boardMenuButton = (WebElement) javascriptExecutor.executeScript("document.getElementsByClassName('MEu8ZECLGMLeab')[0]");
         javascriptExecutor.executeScript("arguments[0].click();", boardMenuButton);
         WebElement boardMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='header-boards-menu-popover']")));
-        WebElement boardsScrollable = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='header-boards-menu-popover']")));
-        javascriptExecutor.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", boardsScrollable);
+
+        WebElement overflowNotSet = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("._1k52pNENP7tpiK")));
+        javascriptExecutor.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", overflowNotSet);
+
+        WebElement overflowHidden = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".khihAkM9Ux6EHW")));
+        javascriptExecutor.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", overflowHidden);
+
+        WebElement overflowSet = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='header-boards-menu-popover']")));
+        javascriptExecutor.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", overflowSet);
 //        javascriptExecutor.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight - arguments[0].clientHeight", boardsScrollable);
-        javascriptExecutor.executeScript("arguments[0].scrollTop = 0", boardsScrollable);
+        javascriptExecutor.executeScript("arguments[0].scrollTop = 0", overflowSet);
 //        javascriptExecutor.executeScript("$(\"#content\").animate({scrollTop:\"300px\"})");
 //        javascriptExecutor.executeScript("window.scrollBy(0,600)","");
 

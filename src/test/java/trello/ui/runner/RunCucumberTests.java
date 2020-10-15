@@ -24,7 +24,7 @@ import trello.ui.core.DriverManager;
 
         features = "src/test/resources/features-ui",
         glue = "trello.ui",
-        tags = "@outline"
+        tags = "@attach"
 )
 public class RunCucumberTests {
         @AfterClass

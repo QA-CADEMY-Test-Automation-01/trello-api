@@ -2,6 +2,7 @@ package trello.ui.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import trello.ui.core.DriverManager;
 import trello.ui.core.WebDriverAction;
@@ -18,7 +19,7 @@ public abstract class AbstractPageObject {
         this.driver = DriverManager.getInstance().getDriver();
         this.wait = new WebDriverWait(this.driver, 20);
         this.action = new WebDriverAction(this.driver, wait);
-        this.driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-        PageFactory.initElements(this.driver, this);
+        AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(this.driver, 20);
+        PageFactory.initElements(factory, this);
     }
 }

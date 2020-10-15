@@ -12,6 +12,8 @@ public class DriverFactory {
         DRIVERS.put("chrome", new Chrome());
         DRIVERS.put("firefox", new Firefox());
         DRIVERS.put("headless", new ChromeHeadless());
+        DRIVERS.put("docker", new Docker());
+        DRIVERS.put("browserstack", new BrowserStack());
     }
 
     public static WebDriver createDriver(String browser){
