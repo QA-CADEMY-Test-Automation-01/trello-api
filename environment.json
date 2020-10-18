@@ -1,5 +1,11 @@
 {
   "browser": "chrome",
   "attachment_path": "D:\\otros\\webUI\\repo\\trello-api\\src\\test\\resources\\test-files\\attachment.txt",
-  "attachment_name": "attachment.txt"
+  "attachment_name": "attachment.txt",
+  "users": {
+    "jose": {
+      "user": "joseccb1948@yahoo.com",
+      "password": "Control*1234"
+    }
+  }
 }

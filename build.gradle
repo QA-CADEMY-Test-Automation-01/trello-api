@@ -9,8 +9,14 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-    id 'de.javaansehz.cluecumber-report-gradle-plugin' version "1.2.1"
+    id "de.javaansehz.cluecumber-report-gradle-plugin" version "1.1.5"
 }
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+group = 'de.javaansehz'
+version = '0.0.1-SNAPSHOT'
+def cucumberVersion = '6.6.1'
+def junitVersion = '4.13'
 
 repositories {
     // Use jcenter for resolving dependencies.
@@ -37,7 +43,7 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
     implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
     implementation 'de.monochromata.cucumber:reporting-plugin:4.0.84'
-    implementation 'com.trivago.rta:cluecumber-report-plugin:2.5.0'
+//    implementation 'com.trivago.rta:cluecumber-report-plugin:2.5.0'
 
     //Selenium
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
@@ -50,6 +56,9 @@ dependencies {
 
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.1.0'
+
+    // https://mvnrepository.com/artifact/com.github.mkolisnyk/cucumber-runner
+    compile group: 'com.github.mkolisnyk', name: 'cucumber-runner', version: '1.0.8'
 }
 
 configurations {
@@ -69,7 +78,33 @@ task cucumber() {
     }
 }
 
+//test {
+//    useJUnitPlatform()
+//}
+
 cluecumberReports {
-    sourceJsonReportDirectory = "reports/cucumber-report/"
-    generatedHtmlReportDirectory = "reports/cucumber-report/html/"
+    sourceJsonReportDirectory = "D:\\otros\\webUI\\repo\\trello-api\\reports\\cucumber-reports"
+    generatedHtmlReportDirectory = "D:\\otros\\webUI\\repo\\trello-api\\reports\\html"
+    expandBeforeAfterHooks = true
 }
+
+//cucumberui.finalizedBy generateCluecumberReports
+//
+task uiTests(type: Test) {
+    include '**/RunCucumberTests*'
+}
+//uiTests.finalizedBy generateCluecumberReports
+
+task uiRerunTests(type: Test) {
+    include '**/ReRunCucumberTests*'
+}
+uiRerunTests.finalizedBy generateCluecumberReports
+
+tasks.withType(Test) {
+    dependsOn cleanTest
+    testLogging {
+        showStandardStreams = true
+    }
+    systemProperties System.properties
+}
+

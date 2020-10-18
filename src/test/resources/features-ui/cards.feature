@@ -39,10 +39,9 @@ Feature: Cards
 
   @attach
   Scenario: Attach file to card
-#    Given I open list creation form
     Given I create the list with name "In Progress"
-
     And I create a card named "Implement searching" in the list "In Progress"
+
     And I open the card "Implement searching"
     When I attach a file
     Then I should see the file name in attachments section

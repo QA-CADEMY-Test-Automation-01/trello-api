@@ -18,7 +18,7 @@ public class BrowserStack extends AbstractDriver {
         caps.setCapability("os_version", "10");
         caps.setCapability("browser", "Chrome");
         caps.setCapability("browser_version", "80");
-        caps.setCapability("name", "josec7's First Test");
+        caps.setCapability("name", "Demo's First Test");
         try{
             return new RemoteWebDriver(new URL(URL), caps);
         }

@@ -5,6 +5,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import trello.ui.core.Environment;
 import trello.ui.pages.Header;
 import trello.ui.pages.Login;
 import trello.ui.pages.Profile;
@@ -48,5 +49,12 @@ public class LoginSteps {
     public void iShouldSeeTheErrorMessageIncorrectPassword(String expectedError) {
         String actualErrorMessage = this.login.getErrorMessage();
         Assert.assertEquals(expectedError, actualErrorMessage);
+    }
+
+    @When("I login with username {string}")
+    public void iLoginWithUsername(String userName) {
+        String user = Environment.getInstance().getValue(String.format("$['users']['%s']['user']", userName));
+        String password = Environment.getInstance().getValue(String.format("$['users']['%s']['password']", userName));
+        this.header = this.login.login(user, password);
     }
 }
